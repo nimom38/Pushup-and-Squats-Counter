@@ -39,7 +39,7 @@
             android:layout_gravity="top">
 
             <ImageButton
-                android:id="@+id/imageButton5"
+                android:id="@+id/flash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -47,12 +47,12 @@
                 android:layout_marginBottom="8dp"
                 android:src="@drawable/flash_off"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton4"
+                app:layout_constraintEnd_toStartOf="@+id/camera_flip"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <ImageButton
-                android:id="@+id/imageButton4"
+                android:id="@+id/camera_flip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -60,12 +60,12 @@
                 android:layout_marginBottom="8dp"
                 android:src="@drawable/camera_flip"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+                app:layout_constraintEnd_toStartOf="@+id/info"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -79,7 +79,7 @@
                 tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -122,7 +122,7 @@
                     android:gravity="center"
                     android:text="PUSHUPS: 3"
                     android:textColor="@color/sunflower_white"
-                    android:textSize="34sp" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/tv2"
@@ -134,13 +134,14 @@
                     android:gravity="center"
                     android:text="SQUATS: 1"
                     android:textColor="@color/sunflower_white"
-                    android:textSize="34sp" />
+                    android:textSize="24sp" />
 
             </LinearLayout>
 
         </com.example.android.getfit.views.MaskedCardView>
 
         <com.example.android.getfit.views.MaskedCardView
+            android:id="@+id/card_start_stop"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="bottom|center"

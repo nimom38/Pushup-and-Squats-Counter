@@ -1,6 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navigations">
+    android:id="@+id/navigations"
+    app:startDestination="@id/papaFragment">
 
+    <fragment
+        android:id="@+id/papaFragment"
+        android:name="com.example.android.getfit.PapaFragment"
+        android:label="PapaFragment" >
+        <action
+            android:id="@+id/action_papaFragment_to_startCounting"
+            app:destination="@id/startCounting" />
+        <action
+            android:id="@+id/action_papaFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/startCounting"
+        android:name="com.example.android.getfit.StartCounting"
+        android:label="StartCounting" >
+        <action
+            android:id="@+id/action_startCounting_to_camera"
+            app:destination="@id/camera" />
+    </fragment>
+    <fragment
+        android:id="@+id/camera"
+        android:name="com.example.android.getfit.Camera"
+        android:label="Camera" >
+        <action
+            android:id="@+id/action_camera_to_countingStopped"
+            app:destination="@id/countingStopped"
+            app:popUpTo="@id/papaFragment" />
+        <argument
+            android:name="pushups"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="squats"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/countingStopped"
+        android:name="com.example.android.getfit.CountingStopped"
+        android:label="CountingStopped" >
+        <argument
+            android:name="pushups"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="squats"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="time"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.example.android.getfit.InfoFragment"
+        android:label="InfoFragment" />
 </navigation>

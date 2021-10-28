@@ -8,6 +8,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_detail_back" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -18,6 +28,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView2">
 
             <com.example.android.getfit.views.MaskedCardView
+                android:id="@+id/card_pushups_only"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginStart="@dimen/card_side_margin"
@@ -52,6 +63,7 @@
             </com.example.android.getfit.views.MaskedCardView>
 
             <com.example.android.getfit.views.MaskedCardView
+                android:id="@+id/card_squats_only"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginStart="@dimen/card_side_margin"
@@ -86,6 +98,7 @@
             </com.example.android.getfit.views.MaskedCardView>
 
             <com.example.android.getfit.views.MaskedCardView
+                android:id="@+id/card_both"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginStart="@dimen/card_side_margin"
@@ -102,7 +115,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/pose_estimation_title"
+                        android:id="@+id/message"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_mono_bold"
@@ -131,17 +144,9 @@
             android:text="START COUNTING"
             android:textSize="34sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/imageButton2" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:src="@drawable/ic_detail_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

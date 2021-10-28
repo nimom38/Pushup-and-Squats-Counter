@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.android.getfit.databinding.FragmentCountingStoppedBinding
 
 
@@ -35,7 +36,38 @@ class CountingStopped : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCountingStoppedBinding.inflate(layoutInflater, container, false)
+
+        binding.imageButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        binding.pushup.text = pushups.toString() + " pushups"
+        binding.squat.text = squats.toString() + " squats"
+        binding.time.text = getTime()
+
         return binding.root
+    }
+
+    private fun getTime(): String {
+        var hour = time!!.div(3600)
+        time = time!! % 3600
+        var minute = time!!.div(60)
+        time = time!! % 60
+        var sec = time
+
+        var ans : String = "Time: "
+
+        if( hour == 0 && minute == 0 ) {
+            ans += sec.toString() + "s"
+        }
+        else {
+            if(hour > 0) ans += hour.toString() + "h"
+            if(minute > 0) ans += minute.toString() + "m"
+            if (sec != null) {
+                if(sec > 0) ans += sec.toString() + "s"
+            }
+        }
+        return ans
     }
 
 }

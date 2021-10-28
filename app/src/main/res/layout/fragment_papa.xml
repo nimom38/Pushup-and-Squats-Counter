@@ -18,6 +18,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView2">
 
             <com.example.android.getfit.views.MaskedCardView
+                android:id="@+id/card_start_counting"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginStart="@dimen/card_side_margin"
@@ -52,6 +53,7 @@
             </com.example.android.getfit.views.MaskedCardView>
 
             <com.example.android.getfit.views.MaskedCardView
+                android:id="@+id/card_see_past_counts"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginStart="@dimen/card_side_margin"
@@ -86,6 +88,7 @@
             </com.example.android.getfit.views.MaskedCardView>
 
             <com.example.android.getfit.views.MaskedCardView
+                android:id="@+id/card_info"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginStart="@dimen/card_side_margin"
@@ -102,7 +105,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/pose_estimation_title"
+                        android:id="@+id/message"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_mono_bold"

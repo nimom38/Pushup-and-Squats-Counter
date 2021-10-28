@@ -50,8 +50,6 @@ class MainActivity : AppCompatActivity() {
     fun startLogic() {
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
-
-
     }
 
     companion object {
