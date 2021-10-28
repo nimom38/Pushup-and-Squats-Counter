@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Get Fit</string>
+    <string name="app_name">AI Camera</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="object_detection">Object Detection</string>
+    <string name="play">PLAY</string>
+    <string name="info">INFO</string>
 </resources>
