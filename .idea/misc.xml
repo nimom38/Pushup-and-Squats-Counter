@@ -19,7 +19,7 @@
         <entry key="app/src/main/res/layout/fragment_start_counting.xml" value="0.18" />
         <entry key="app/src/main/res/layout/inner_card_item.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/inner_card_recycler.xml" value="0.19322916666666667" />
-        <entry key="app/src/main/res/layout/outer_card.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/outer_card.xml" value="0.1" />
       </map>
     </option>
   </component>

@@ -5,17 +5,20 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="outer_card"
+            type="com.example.android.getfit.data.Datum.OuterCard" />
     </data>
 
     <com.alespero.expandablecardview.ExpandableCardView
+        android:id="@+id/outer_card_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:title="Passengers"
-        app:inner_view="@layout/inner_card_recycler"
-        app:expandOnClick="true"
         app:animationDuration="300"
-        app:startExpanded="false" />
+        app:expandOnClick="true"
+        app:inner_view="@layout/inner_card_recycler"
+        app:startExpanded="false"
+        app:title="@{outer_card.day}" />
 
 
 </layout>
