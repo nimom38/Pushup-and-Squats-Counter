@@ -7,4 +7,4 @@
 //    }
 //}
 rootProject.name = "Get Fit"
-include ':app'
+include ':app', ":library"

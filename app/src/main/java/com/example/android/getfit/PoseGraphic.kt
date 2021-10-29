@@ -56,6 +56,7 @@ class PoseGraphic internal constructor(
       val classificationY = canvas.height - (
         POSE_CLASSIFICATION_TEXT_SIZE * 1.5f * (poseClassification.size - i).toFloat()
         )
+      if(i == 0 && poseClassification.size == 2) continue
       canvas.drawText(
         poseClassification[i],
         classificationX,

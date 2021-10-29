@@ -159,4 +159,7 @@ dependencies {
 
     // Object detection feature with custom classifier support
     implementation 'com.google.mlkit:object-detection-custom:16.3.3'
+
+    // Expandable card view
+    implementation 'com.alespero:expandable-cardview:0.8'
 }

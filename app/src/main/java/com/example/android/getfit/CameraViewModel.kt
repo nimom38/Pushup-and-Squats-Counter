@@ -5,6 +5,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.android.getfit.classification.PoseClassifierProcessor
 import com.google.mlkit.vision.pose.PoseDetection
 import com.google.mlkit.vision.pose.defaults.PoseDetectorOptions
 
@@ -18,6 +19,12 @@ class CameraViewModel (safeContext: Application) : AndroidViewModel(safeContext)
     var squats: Int = 0
     var isStart: Boolean = false
     var start_time: Long = 0
+
+    var pushups_cnt: Int = 0
+    var squats_cnt: Int = 0
+    var now: String = "nothing"
+
+    val poseClassifierProcessor = PoseClassifierProcessor(safeContext, true)
 
     val options = PoseDetectorOptions.Builder()
         .setDetectorMode(PoseDetectorOptions.STREAM_MODE)

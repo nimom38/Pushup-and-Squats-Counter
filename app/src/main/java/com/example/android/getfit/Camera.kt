@@ -16,16 +16,23 @@ import androidx.camera.core.Preview
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.android.getfit.classification.PoseClassifierProcessor
 import com.example.android.getfit.databinding.FragmentCameraBinding
 import com.google.android.gms.tasks.TaskExecutors
 import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.pose.Pose
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 
 
 private const val PUSHUPS = "pushups"
 private const val SQUATS = "squats"
 
 class Camera : Fragment() {
+
+
+
     private var pushups: Boolean? = null
     private var squats: Boolean? = null
 
@@ -34,6 +41,10 @@ class Camera : Fragment() {
     private var graphicOverlay: GraphicOverlay? = null
 
     private val executor = ScopedExecutor(TaskExecutors.MAIN_THREAD)
+
+    private val classificationExecutor: Executor = Executors.newSingleThreadExecutor()
+
+    class PoseWithClassification(val pose: Pose, val classificationResult: List<String>)
 
     private var preview: Preview? = null
     private var imageAnalyzer: ImageAnalysis? = null
@@ -148,6 +159,8 @@ class Camera : Fragment() {
     private fun bindUseCases(which_camera: Int, isFlashOn: Boolean, isStart: Boolean) {
         var needUpdateGraphicOverlayImageSourceInfo: Boolean = true
 
+        Log.d("Camera", "hohoho")
+
         viewModel.cameraProviderFuture.addListener(Runnable {
             // Preview
             preview = Preview.Builder()
@@ -217,17 +230,46 @@ class Camera : Fragment() {
         val mediaImage = imageProxy.image
         if (mediaImage != null) {
             val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
+            Log.d("Camera", "dis3")
             val result = viewModel.poseDetector.process(image)
+                .continueWith(classificationExecutor, { results ->
+                    Log.d("Camera", "dis1")
+                        val pose = results.getResult()
+                        var classificationResult: List<String> = java.util.ArrayList()
+                        classificationResult = viewModel.poseClassifierProcessor!!.getPoseResult(pose)
+                        PoseWithClassification(pose, classificationResult)
+//                    Log.d("Camera", "dis1")
+                    }
+                )
                 .addOnSuccessListener(executor, { results ->
+                    Log.d("Camera", "dis2")
+                    var temp = results.classificationResult
+                    assert(temp.size <= 2)
+                    if(temp.size == 2) {
+                        var hu = temp[0]
+                        var hu_list = stringToWords(hu)
+                        assert(hu_list.size == 4 || hu_list.size == 0)
+                        if(hu_list.size == 4) {
+                            if (hu_list[0] == "pushups_down") {
+                                viewModel.pushups_cnt = hu_list[2].toInt()
+                            } else {
+                                viewModel.squats_cnt = hu_list[2].toInt()
+                            }
+                            binding.tv1.text = "PUSHUPS: " + viewModel.pushups_cnt.toString()
+                            binding.tv2.text = "SQUATS: " + viewModel.squats_cnt.toString()
+                        }
+                    }
                     graphicOverlay!!.clear()
                     graphicOverlay.add(
                         PoseGraphic(
                             graphicOverlay,
-                            results,
+                            results.pose,
+//                            results,
                             true,
                             true,
                             true,
-                            ArrayList()
+                            results.classificationResult
+//                        ArrayList()
                         )
                     )
                     graphicOverlay.postInvalidate()
@@ -241,4 +283,9 @@ class Camera : Fragment() {
         }
 
     }
+
+    fun stringToWords(s : String) = s.trim().splitToSequence(' ')
+//        .filter { it.isNotEmpty() }
+        .filter { it.isNotBlank() }
+        .toList()
 }

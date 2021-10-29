@@ -12,10 +12,14 @@
         <entry key="app/src/main/res/layout-land/fragment_camera.xml" value="0.22291666666666668" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_camera.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/fragment_counting_stopped.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/fragment_counting_stopped.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_info.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_papa.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/layout/fragment_see_past_counts.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_start_counting.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/inner_card_item.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/layout/inner_card_recycler.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/layout/outer_card.xml" value="0.25" />
       </map>
     </option>
   </component>
