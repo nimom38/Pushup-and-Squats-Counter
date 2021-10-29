@@ -5,6 +5,8 @@ import android.app.Application
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
+import android.speech.tts.TextToSpeech.OnInitListener
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -63,6 +65,8 @@ class Camera : Fragment() {
     private lateinit var application: Application
     private lateinit var dataSource: Dao
 
+    private lateinit var text_to_speech: TextToSpeech
+
 
     private val viewModel: CameraViewModel by lazy {
         ViewModelProvider(this, CameraViewModel.Factory(dataSource, activity!!.application))
@@ -88,6 +92,15 @@ class Camera : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        text_to_speech = TextToSpeech(
+            application
+        ) { status ->
+            if (status != TextToSpeech.ERROR) {
+                text_to_speech.setLanguage(Locale.UK)
+            }
+        }
+
         binding = FragmentCameraBinding.inflate(layoutInflater, container, false)
 
         graphicOverlay = binding.graphicOverlay
@@ -95,7 +108,7 @@ class Camera : Fragment() {
         binding.back.setOnClickListener {
             if(!viewModel.isStart) findNavController().navigateUp()
             else {
-                binding.cardStartStop!!.performClick()
+                binding.cardStartStop?.performClick()
             }
         }
 
@@ -129,7 +142,7 @@ class Camera : Fragment() {
             else if( squats == true ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing squats", Toast.LENGTH_LONG).show()
         }
 
-        binding.cardStartStop!!.setOnClickListener {
+        binding.cardStartStop?.setOnClickListener {
             if(viewModel.isStart) {
                 val temp: Long = (System.currentTimeMillis()/1000) - viewModel.start_time
                 val direction =
@@ -147,6 +160,16 @@ class Camera : Fragment() {
             }
         }
 
+        binding.mute?.setOnClickListener {
+            viewModel.mute = !viewModel.mute
+            if( viewModel.mute ) {
+                Toast.makeText(application, "Voice mode deactivated", Toast.LENGTH_LONG).show()
+            }
+            else {
+                Toast.makeText(application, "Voice mode activated", Toast.LENGTH_LONG).show()
+            }
+        }
+
         return binding.root
     }
 
@@ -157,9 +180,7 @@ class Camera : Fragment() {
             else if( pushups == true ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing pushups", Toast.LENGTH_LONG).show()
             else if( squats == true ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing squats", Toast.LENGTH_LONG).show()
 
-            viewModel.isFlash = false
-            viewModel.which_camera = 0
-            binding.flash.visibility = View.INVISIBLE
+            Toast.makeText(application, "Voice mode activated", Toast.LENGTH_LONG).show()
             viewModel.prothom = false
         }
         if(viewModel.which_camera == 0) {
@@ -261,6 +282,7 @@ class Camera : Fragment() {
                     }
                 )
                 .addOnSuccessListener(executor, { results ->
+                    var ff: Boolean = false
                     Log.d("Camera", "dis2")
                     var temp = results.classificationResult
                     assert(temp.size <= 2)
@@ -269,10 +291,48 @@ class Camera : Fragment() {
                         var hu_list = stringToWords(hu)
                         assert(hu_list.size == 4 || hu_list.size == 0)
                         if(hu_list.size == 4) {
-                            if (hu_list[0] == "pushups_down") {
+                            if ( (hu_list[0] == "pushups_down") && (pushups == true) ) {
+                                ff = true
+                                var haha: Boolean = false
+                                if( (viewModel.now != "pushups") ) {
+                                    viewModel.now = "pushups"
+                                    ++viewModel.pushups
+                                    viewModel.squats = 0
+                                    haha = true
+                                }
+                                else if( viewModel.pushups_cnt < hu_list[2].toInt() ) {
+                                    ++viewModel.pushups
+                                    haha = true
+                                }
                                 viewModel.pushups_cnt = hu_list[2].toInt()
-                            } else {
+                                var toSpeak = "Pushup number " + viewModel.pushups_cnt.toString()
+                                if(viewModel.pushups > 3) toSpeak = viewModel.pushups_cnt.toString()
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                    if (!viewModel.mute && haha) text_to_speech.speak(toSpeak, TextToSpeech.QUEUE_FLUSH,null,null);
+                                } else {
+                                    if (!viewModel.mute && haha) text_to_speech.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+                                }
+                            } else if( (hu_list[0] == "squats_down") && (squats == true) ) {
+                                ff = true
+                                var haha: Boolean = false
+                                if( (viewModel.now != "squats") ) {
+                                    viewModel.now = "squats"
+                                    ++viewModel.squats
+                                    viewModel.pushups = 0
+                                    haha = true
+                                }
+                                else if( viewModel.squats_cnt < hu_list[2].toInt() ) {
+                                    ++viewModel.squats
+                                    haha = true
+                                }
                                 viewModel.squats_cnt = hu_list[2].toInt()
+                                var toSpeak = "Squat number " + viewModel.squats_cnt.toString()
+                                if(viewModel.squats > 3) toSpeak = viewModel.squats_cnt.toString()
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                    if (!viewModel.mute && haha) text_to_speech.speak(toSpeak, TextToSpeech.QUEUE_FLUSH,null,null);
+                                } else {
+                                    if (!viewModel.mute && haha) text_to_speech.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+                                }
                             }
                             binding.tv1.text = "PUSHUPS: " + viewModel.pushups_cnt.toString()
                             binding.tv2.text = "SQUATS: " + viewModel.squats_cnt.toString()
@@ -287,8 +347,9 @@ class Camera : Fragment() {
                             true,
                             true,
                             true,
-                            results.classificationResult
+                            results.classificationResult,
 //                        ArrayList()
+                            ff
                         )
                     )
                     graphicOverlay.postInvalidate()

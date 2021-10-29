@@ -17,7 +17,8 @@ class PoseGraphic internal constructor(
   private val showInFrameLikelihood: Boolean,
   private val visualizeZ: Boolean,
   private val rescaleZForVisualization: Boolean,
-  private val poseClassification: List<String>
+  private val poseClassification: List<String>,
+  private val ff: Boolean
 ) : GraphicOverlay.Graphic(overlay) {
   private var zMin = java.lang.Float.MAX_VALUE
   private var zMax = java.lang.Float.MIN_VALUE
@@ -57,6 +58,7 @@ class PoseGraphic internal constructor(
         POSE_CLASSIFICATION_TEXT_SIZE * 1.5f * (poseClassification.size - i).toFloat()
         )
       if(i == 0 && poseClassification.size == 2) continue
+      if(!ff) continue
       canvas.drawText(
         poseClassification[i],
         classificationX,

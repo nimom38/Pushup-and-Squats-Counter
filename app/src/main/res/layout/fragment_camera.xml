@@ -20,7 +20,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" >
+
+            </androidx.camera.view.PreviewView>
 
             <com.example.android.getfit.GraphicOverlay
                 android:id="@+id/graphic_overlay"
@@ -39,6 +41,17 @@
             android:layout_gravity="top">
 
             <ImageButton
+                android:id="@+id/camera_flip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/camera_flip"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/mute"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <ImageButton
                 android:id="@+id/flash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,13 +65,14 @@
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <ImageButton
-                android:id="@+id/camera_flip"
+
+                android:id="@+id/mute"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/camera_flip"
+                app:srcCompat="@drawable/mute"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/info"
                 app:layout_constraintTop_toTopOf="parent"
@@ -120,7 +134,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_mono_bold"
                     android:gravity="center"
-                    android:text="PUSHUPS: 3"
+                    android:text="PUSHUPS: 0"
                     android:textColor="@color/sunflower_white"
                     android:textSize="24sp" />
 
@@ -132,7 +146,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_mono_bold"
                     android:gravity="center"
-                    android:text="SQUATS: 1"
+                    android:text="SQUATS: 0"
                     android:textColor="@color/sunflower_white"
                     android:textSize="24sp" />
 

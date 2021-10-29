@@ -25,6 +25,8 @@ class CameraViewModel (val database: Dao, safeContext: Application) : AndroidVie
     var squats_cnt: Int = 0
     var now: String = "nothing"
 
+    var mute: Boolean = false
+
     val poseClassifierProcessor = PoseClassifierProcessor(safeContext, true)
 
     val options = PoseDetectorOptions.Builder()
