@@ -6,11 +6,8 @@
 
     <data>
         <variable
-            name="inner_card"
-            type="com.example.android.getfit.data.Datum.InnerCard" />
-        <variable
-            name="viewModel"
-            type="com.example.android.getfit.SeePastCountsViewModel" />
+            name="card"
+            type="com.example.android.getfit.data.Datum.Card" />
     </data>
 
     <com.example.android.getfit.views.MaskedCardView
@@ -40,20 +37,8 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
-                android:text="delete"
+                android:text="Delete"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/duration" />
-
-            <TextView
-                android:id="@+id/duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/roboto_mono_bold"
-                android:text="Duration: $@{inner_card.duration}"
-                android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/time" />
 
@@ -63,10 +48,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
-                android:text="Time: $@{inner_card.time}"
+                android:text="@{card.duration}"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/squat" />
+                app:layout_constraintTop_toBottomOf="@+id/squat"
+                tools:text="Duration: 5s" />
 
             <TextView
                 android:id="@+id/squat"
@@ -74,10 +60,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:text="$@{inner_card.squats} Squats"
+                android:text="@{card.squats}"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pushup" />
+                app:layout_constraintTop_toBottomOf="@+id/pushup"
+                tools:text="0 Squats"/>
 
             <TextView
                 android:id="@+id/pushup"
@@ -85,12 +72,29 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
-                android:text="$@{inner_card.pushups} Pushups"
+                android:text="@{card.pushups}"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/message"
+                tools:text="3 Pushups"/>
+
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_mono_bold"
+                android:gravity="center"
+                android:text="@{card.dayTime}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="34sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="3:00pm - Thur, Jan 2021"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
     </com.example.android.getfit.views.MaskedCardView>
+
 
 </layout>

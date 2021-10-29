@@ -6,10 +6,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.getfit.classification.PoseClassifierProcessor
+import com.example.android.getfit.data.Dao
 import com.google.mlkit.vision.pose.PoseDetection
 import com.google.mlkit.vision.pose.defaults.PoseDetectorOptions
 
-class CameraViewModel (safeContext: Application) : AndroidViewModel(safeContext) {
+class CameraViewModel (val database: Dao, safeContext: Application) : AndroidViewModel(safeContext) {
     var prothom: Boolean = true
     var isFlash: Boolean = false
     var which_camera: Int = 1
@@ -34,11 +35,11 @@ class CameraViewModel (safeContext: Application) : AndroidViewModel(safeContext)
     val poseDetector = PoseDetection.getClient(options)
 
 
-    class Factory(val app: Application) : ViewModelProvider.Factory {
+    class Factory(val database: Dao, val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(CameraViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return CameraViewModel(app) as T
+                return CameraViewModel(database, app) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }

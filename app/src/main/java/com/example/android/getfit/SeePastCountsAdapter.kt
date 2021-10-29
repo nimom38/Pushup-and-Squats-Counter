@@ -7,14 +7,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.getfit.data.Datum
-import com.example.android.getfit.databinding.OuterCardBinding
+import com.example.android.getfit.databinding.CardListBinding
 
 
-class SeePastCountsAdapter : ListAdapter<Datum.OuterCard, RecyclerView.ViewHolder>(OuterCardDiffCallback()) {
+class SeePastCountsAdapter : ListAdapter<Datum.Card, RecyclerView.ViewHolder>(CardDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return OuterCardViewHolder(
-            OuterCardBinding.inflate(
+        return CardViewHolder(
+            CardListBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -23,40 +23,30 @@ class SeePastCountsAdapter : ListAdapter<Datum.OuterCard, RecyclerView.ViewHolde
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val outer_item = getItem(position)
-        (holder as OuterCardViewHolder).bind(outer_item)
+        val item = getItem(position)
+        (holder as CardViewHolder).bind(item)
     }
 
-    class OuterCardViewHolder(
-        private val binding: OuterCardBinding
+    class CardViewHolder(
+        private val binding: CardListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-
-        init {
-            binding.outerCardId.setOnExpandedListener { view, isExpanded ->
-                if(isExpanded) {
-                    binding.outerCardId.collapse()
-                    binding.outerCardId.
-                }
-            }
-        }
-
-        fun bind(item: Datum.OuterCard) {
+        fun bind(item: Datum.Card) {
             binding.apply {
-                outerCard = item
+                card = item
                 executePendingBindings()
             }
         }
     }
 }
 
-private class OuterCardDiffCallback : DiffUtil.ItemCallback<Datum.OuterCard>() {
+private class CardDiffCallback : DiffUtil.ItemCallback<Datum.Card>() {
 
-    override fun areItemsTheSame(oldItem: Datum.OuterCard, newItem: Datum.OuterCard): Boolean {
+    override fun areItemsTheSame(oldItem: Datum.Card, newItem: Datum.Card): Boolean {
         return oldItem.id == newItem.id
     }
 
     @SuppressLint("DiffUtilEquals")
-    override fun areContentsTheSame(oldItem: Datum.OuterCard, newItem: Datum.OuterCard): Boolean {
+    override fun areContentsTheSame(oldItem: Datum.Card, newItem: Datum.Card): Boolean {
         return oldItem == newItem
     }
 }

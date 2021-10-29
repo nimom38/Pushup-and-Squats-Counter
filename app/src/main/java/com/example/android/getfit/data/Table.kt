@@ -9,13 +9,10 @@ import androidx.room.*
 data class Table(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id: Long = 0,
+    var id: Int = 0,
 
-    @ColumnInfo(name = "date")
-    val date: String,
-
-    @ColumnInfo(name = "time")
-    val time: String,
+    @ColumnInfo(name = "dateTime")
+    val dateTime: String,
 
     @ColumnInfo(name = "duration")
     val duration: String,

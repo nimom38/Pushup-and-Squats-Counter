@@ -26,9 +26,9 @@ class PapaFragment : Fragment() {
         }
 
         binding.cardSeePastCounts.setOnClickListener{
-//            val direction =
-//                PapaFragmentDirections.actionPapaFragmentToSeePastCounts()
-//            findNavController().navigate(direction)
+            val direction =
+                PapaFragmentDirections.actionPapaFragmentToSeePastCounts()
+            findNavController().navigate(direction)
         }
 
         binding.cardInfo.setOnClickListener{

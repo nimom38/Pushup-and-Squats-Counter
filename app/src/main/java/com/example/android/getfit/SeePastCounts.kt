@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.android.getfit.data.AppDatabase
+import com.example.android.getfit.data.Datum
 import com.example.android.getfit.databinding.FragmentSeePastCountsBinding
 
 class SeePastCounts : Fragment() {
@@ -30,9 +33,21 @@ class SeePastCounts : Fragment() {
         binding.viewModel = viewModel
         binding.setLifecycleOwner(this)
 
+        val adapter = SeePastCountsAdapter()
 
+        binding.cardList.adapter = adapter
 
+        binding.imageButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
+        viewModel.data.observe(viewLifecycleOwner, Observer { items ->
+            var hmm = ArrayList<Datum.Card>()
+            for(item in items) {
+                hmm.add(Datum.Card(item.id, item.dateTime, item.duration, item.pushups, item.squats))
+            }
+            adapter.submitList(hmm)
+        })
         return binding.root
     }
 }

@@ -1,7 +1,9 @@
 package com.example.android.getfit
 
 import android.annotation.SuppressLint
+import android.app.Application
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,13 +17,20 @@ import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.android.getfit.classification.PoseClassifierProcessor
+import com.example.android.getfit.data.AppDatabase
+import com.example.android.getfit.data.Dao
+import com.example.android.getfit.data.Table
 import com.example.android.getfit.databinding.FragmentCameraBinding
 import com.google.android.gms.tasks.TaskExecutors
 import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.pose.Pose
+import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
@@ -51,14 +60,20 @@ class Camera : Fragment() {
 
     private lateinit var safeContext: Context
 
+    private lateinit var application: Application
+    private lateinit var dataSource: Dao
+
+
     private val viewModel: CameraViewModel by lazy {
-        ViewModelProvider(this, CameraViewModel.Factory(activity!!.application))
+        ViewModelProvider(this, CameraViewModel.Factory(dataSource, activity!!.application))
             .get(CameraViewModel::class.java)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         safeContext = context
+        application = requireNotNull(this.activity).application
+        dataSource = AppDatabase.getInstance(application).dao
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -109,16 +124,20 @@ class Camera : Fragment() {
         }
 
         binding.info.setOnClickListener {
-            if( (pushups == true) && (squats == true) ) Toast.makeText(safeContext, "Place camera in such a way that is can clearly see you doing pushups and squats", Toast.LENGTH_LONG)
-            else if( pushups == true ) Toast.makeText(safeContext, "Place camera in such a way that is can clearly see you doing pushups", Toast.LENGTH_LONG)
-            else if( squats == true ) Toast.makeText(safeContext, "Place camera in such a way that is can clearly see you doing squats", Toast.LENGTH_LONG)
+            if( (pushups == true) && (squats == true) ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing pushups and squats", Toast.LENGTH_LONG).show()
+            else if( pushups == true ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing pushups", Toast.LENGTH_LONG).show()
+            else if( squats == true ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing squats", Toast.LENGTH_LONG).show()
         }
 
         binding.cardStartStop!!.setOnClickListener {
             if(viewModel.isStart) {
                 val temp: Long = (System.currentTimeMillis()/1000) - viewModel.start_time
                 val direction =
-                    CameraDirections.actionCameraToCountingStopped(viewModel.pushups, viewModel.squats, temp.toInt())
+                    CameraDirections.actionCameraToCountingStopped(viewModel.pushups_cnt, viewModel.squats_cnt, temp.toInt())
+                var yo = TimeUtils.getTime() + " - " + TimeUtils.getMonth() + " " + TimeUtils.getDay() + ", " + TimeUtils.getYear();
+                lifecycleScope.launch {
+                    viewModel.database.insert(Table( dateTime = yo, duration = "Duration: " + getTime(temp.toInt()).toString(), pushups = "Pushups: " + viewModel.pushups_cnt.toString(), squats = "Squats: " + viewModel.squats_cnt.toString() ))
+                }
                 findNavController().navigate(direction)
             }
             else {
@@ -134,9 +153,9 @@ class Camera : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if(viewModel.prothom) {
-            if( (pushups == true) && (squats == true) ) Toast.makeText(safeContext, "Place camera in such a way that is can clearly see you doing pushups and squats", Toast.LENGTH_LONG)
-            else if( pushups == true ) Toast.makeText(safeContext, "Place camera in such a way that is can clearly see you doing pushups", Toast.LENGTH_LONG)
-            else if( squats == true ) Toast.makeText(safeContext, "Place camera in such a way that is can clearly see you doing squats", Toast.LENGTH_LONG)
+            if( (pushups == true) && (squats == true) ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing pushups and squats", Toast.LENGTH_LONG).show()
+            else if( pushups == true ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing pushups", Toast.LENGTH_LONG).show()
+            else if( squats == true ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing squats", Toast.LENGTH_LONG).show()
 
             viewModel.isFlash = false
             viewModel.which_camera = 0
@@ -288,4 +307,27 @@ class Camera : Fragment() {
 //        .filter { it.isNotEmpty() }
         .filter { it.isNotBlank() }
         .toList()
+
+    private fun getTime(ttime: Int): String {
+        var time = ttime
+        var hour = time!!.div(3600)
+        time = time!! % 3600
+        var minute = time!!.div(60)
+        time = time!! % 60
+        var sec = time
+
+        var ans : String = "Time: "
+
+        if( hour == 0 && minute == 0 ) {
+            ans += sec.toString() + "s"
+        }
+        else {
+            if(hour > 0) ans += hour.toString() + "h"
+            if(minute > 0) ans += minute.toString() + "m"
+            if (sec != null) {
+                if(sec > 0) ans += sec.toString() + "s"
+            }
+        }
+        return ans
+    }
 }

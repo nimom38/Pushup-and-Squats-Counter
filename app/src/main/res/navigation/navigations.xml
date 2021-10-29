@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_papaFragment_to_infoFragment"
             app:destination="@id/infoFragment" />
+        <action
+            android:id="@+id/action_papaFragment_to_seePastCounts"
+            app:destination="@id/seePastCounts" />
     </fragment>
     <fragment
         android:id="@+id/startCounting"
@@ -61,4 +64,8 @@
         android:id="@+id/infoFragment"
         android:name="com.example.android.getfit.InfoFragment"
         android:label="InfoFragment" />
+    <fragment
+        android:id="@+id/seePastCounts"
+        android:name="com.example.android.getfit.SeePastCounts"
+        android:label="SeePastCounts" />
 </navigation>

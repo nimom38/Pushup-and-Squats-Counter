@@ -1,9 +1,8 @@
 package com.example.android.getfit.data
 
 import androidx.lifecycle.LiveData
+import androidx.room.*
 import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Query
 
 @Dao
 interface Dao {
@@ -12,4 +11,7 @@ interface Dao {
 
     @Query("DELETE FROM `table` WHERE id=:id")
     suspend fun delete(id: Int)
+
+    @Insert
+    suspend fun insert(table: Table)
 }
