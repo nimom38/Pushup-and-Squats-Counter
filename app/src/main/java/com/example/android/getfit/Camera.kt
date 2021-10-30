@@ -3,6 +3,7 @@ package com.example.android.getfit
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -10,6 +11,7 @@ import android.speech.tts.TextToSpeech.OnInitListener
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.OrientationEventListener
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -86,12 +88,32 @@ class Camera : Fragment() {
             pushups = it.getBoolean(PUSHUPS)
             squats = it.getBoolean(SQUATS)
         }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val mOrientationListener: OrientationEventListener = object : OrientationEventListener(
+            application
+        ) {
+            override fun onOrientationChanged(orientation: Int) {
+                if (orientation == 0) {
+                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                }
+                else if(orientation == 180) {
+                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT
+                }
+                else if (orientation == 90) {
+                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
+                }
+                else if (orientation == 270) {
+                    activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                }
+            }
+        }
 
         text_to_speech = TextToSpeech(
             application
@@ -390,5 +412,10 @@ class Camera : Fragment() {
             }
         }
         return ans
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     }
 }

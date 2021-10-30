@@ -1,5 +1,6 @@
 package com.example.android.getfit
 
+import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
@@ -22,6 +23,8 @@ class InfoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+
         binding = FragmentInfoBinding.inflate(layoutInflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
 
@@ -67,6 +70,11 @@ class InfoFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     }
 
 }

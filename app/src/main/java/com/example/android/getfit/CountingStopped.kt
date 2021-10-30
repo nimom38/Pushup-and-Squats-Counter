@@ -1,5 +1,6 @@
 package com.example.android.getfit
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -35,6 +36,8 @@ class CountingStopped : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
         binding = FragmentCountingStoppedBinding.inflate(layoutInflater, container, false)
 
         binding.imageButton.setOnClickListener {
@@ -70,4 +73,8 @@ class CountingStopped : Fragment() {
         return ans
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+    }
 }

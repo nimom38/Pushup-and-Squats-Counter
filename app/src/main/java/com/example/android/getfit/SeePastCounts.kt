@@ -1,5 +1,6 @@
 package com.example.android.getfit
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,6 +20,8 @@ class SeePastCounts : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
         binding = FragmentSeePastCountsBinding.inflate(layoutInflater, container, false)
 
         val application = requireNotNull(this.activity).application
@@ -49,5 +52,10 @@ class SeePastCounts : Fragment() {
             adapter.submitList(hmm)
         })
         return binding.root
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     }
 }
