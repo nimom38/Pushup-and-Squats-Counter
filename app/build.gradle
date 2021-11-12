@@ -11,7 +11,7 @@ android {
         mlModelBinding true
     }
     defaultConfig {
-        applicationId "com.example.android.aicamera"
+        applicationId "com.example.android.getfit"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
@@ -67,24 +67,12 @@ android {
 dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-
-//    implementation "androidx.camera:camera-core:1.1.0-alpha09"
-//    implementation "androidx.camera:camera-camera2:1.0.2"
-//    implementation 'androidx.camera:camera-lifecycle:1.0.2'
-//    implementation 'androidx.camera:camera-view:1.0.0-alpha29'
-
     // CameraX
     def camerax_version = "1.1.0-alpha09"
     implementation "androidx.camera:camera-core:${camerax_version}"
     implementation "androidx.camera:camera-camera2:${camerax_version}"
     implementation "androidx.camera:camera-lifecycle:${camerax_version}"
     implementation 'androidx.camera:camera-view:1.0.0-alpha29'
-
-    //Tensorflow lite
-    implementation 'org.tensorflow:tensorflow-lite:2.4.0'
-    implementation 'org.tensorflow:tensorflow-lite-gpu:2.3.0'
-    implementation 'org.tensorflow:tensorflow-lite-support:0.2.0'
-    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0'
 
 
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
@@ -102,14 +90,11 @@ dependencies {
     implementation "androidx.paging:paging-runtime-ktx:$rootProject.pagingVersion"
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
-    implementation "androidx.viewpager2:viewpager2:$rootProject.viewPagerVersion"
     implementation "androidx.work:work-runtime-ktx:$rootProject.workVersion"
     implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
     implementation "com.google.android.material:material:$rootProject.materialVersion"
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpLoggingVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
-    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
     implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
@@ -133,35 +118,11 @@ dependencies {
     implementation 'com.google.guava:guava:27.1-android'
 
 
-
-    // Face features
-    implementation 'com.google.mlkit:face-detection:16.1.2'
-
-    // Image labeling
-    implementation 'com.google.mlkit:image-labeling:17.0.5'
-
     // Pose detection with default models
     implementation 'com.google.mlkit:pose-detection:17.0.1-beta6'
     // Pose detection with accurate models
     implementation 'com.google.mlkit:pose-detection-accurate:17.0.1-beta6'
 
-    // Selfie segmentation
-    implementation 'com.google.mlkit:segmentation-selfie:16.0.0-beta2'
-    implementation 'com.google.mlkit:camera:16.0.0-beta1'
-
-    // Tensorflow lite dependencies
-    implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly-SNAPSHOT'
-    implementation 'org.tensorflow:tensorflow-lite-gpu:0.0.0-nightly-SNAPSHOT'
-    implementation 'org.tensorflow:tensorflow-lite-support:0.0.0-nightly-SNAPSHOT'
-
-    // Object detection feature with bundled default classifier
-    implementation 'com.google.mlkit:object-detection:16.2.7'
-
-    // Object detection feature with custom classifier support
-    implementation 'com.google.mlkit:object-detection-custom:16.3.3'
-
-    // Expandable card view
-    implementation 'com.alespero:expandable-cardview:0.8'
 
     // Java Time
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'

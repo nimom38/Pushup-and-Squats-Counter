@@ -6,9 +6,9 @@ public class TimeUtils {
     public static String getDay() {
         DateTime dt = new DateTime();
         DateTime.Property pDoW = dt.dayOfWeek();
-//        String strST = pDoW.getAsShortText(); // returns "Mon", "Tue", etc.
-        String strT = pDoW.getAsText(); // returns "Monday", "Tuesday", etc.
-        return strT;
+        String strST = pDoW.getAsShortText(); // returns "Mon", "Tue", etc.
+//        String strT = pDoW.getAsText(); // returns "Monday", "Tuesday", etc.
+        return strST;
     }
 
     public static String getMonth() {
@@ -38,14 +38,16 @@ public class TimeUtils {
             if( hour > 12 ) hour -= 12;
             ans += hour.toString();
             ans += ":";
-            ans += min.toString();
+            if( min.toString().length() == 1 ) ans += "0" + min.toString();
+            else ans += min.toString();
             ans += "pm";
         }
         else {
             if(hour == 0) hour = 12;
             ans += hour.toString();
             ans += ":";
-            ans += min.toString();
+            if( min.toString().length() == 1 ) ans += "0" + min.toString();
+            else ans += min.toString();
             ans += "am";
         }
         return ans;

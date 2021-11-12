@@ -4,19 +4,21 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.22135416666666666" />
+        <entry key="app/src/main/res/drawable/back_white.xml" value="0.13148148148148148" />
         <entry key="app/src/main/res/drawable/camera_flip.xml" value="0.15092592592592594" />
         <entry key="app/src/main/res/drawable/flash_off.xml" value="0.15092592592592594" />
         <entry key="app/src/main/res/drawable/flash_on.xml" value="0.15092592592592594" />
         <entry key="app/src/main/res/drawable/ic_detail_back.xml" value="0.15092592592592594" />
         <entry key="app/src/main/res/drawable/info.xml" value="0.15092592592592594" />
+        <entry key="app/src/main/res/drawable/info_white.xml" value="0.13148148148148148" />
         <entry key="app/src/main/res/layout-land/fragment_camera.xml" value="0.22291666666666668" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/card_list.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_camera.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/fragment_counting_stopped.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_counting_stopped.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_info.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_papa.xml" value="0.19322916666666667" />
-        <entry key="app/src/main/res/layout/fragment_see_past_counts.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_papa.xml" value="0.16" />
+        <entry key="app/src/main/res/layout/fragment_see_past_counts.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_start_counting.xml" value="0.18" />
         <entry key="app/src/main/res/layout/inner_card_item.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/inner_card_recycler.xml" value="0.19322916666666667" />

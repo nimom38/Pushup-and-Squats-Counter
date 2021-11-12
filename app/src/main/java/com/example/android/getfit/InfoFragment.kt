@@ -16,7 +16,7 @@ class InfoFragment : Fragment() {
 
     private lateinit var binding: FragmentInfoBinding
 
-    private val description: String = "<p>Explain some shits<p>"
+    private val description: String = "<p> Machine learning was used to make this app. The domains of machine learning that we used are Pose Estimation and K-means clustering. <br/> Pose Estimation is used to estimate the key points of the human body and track their movements. <br/> K-means clustering is an unsupervised machine learning algorithm. It basically takes the dataset and searches for pattern inside it and group the similar data together into a cluster. Hence multiple clusters are formed. <br/> Here in our app we trained the K-means cluster unsupervised model by training it on a dataset containing hundreds of pushup and squats images. Those images were taken from different angles so that the model could find a generalized solution and avoid overfitting.<p>"
     private val title: String = "Magic of Machine Learning"
 
     override fun onCreateView(

@@ -41,7 +41,7 @@
                     android:scaleType="centerCrop"
 
                     app:layout_collapseMode="parallax"
-                    app:srcCompat="@drawable/object_detection" />
+                    app:srcCompat="@drawable/pose_estimation" />
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/toolbar"

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.content.pm.ActivityInfo
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -80,21 +81,6 @@ class Camera : Fragment() {
         safeContext = context
         application = requireNotNull(this.activity).application
         dataSource = AppDatabase.getInstance(application).dao
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            pushups = it.getBoolean(PUSHUPS)
-            squats = it.getBoolean(SQUATS)
-        }
-
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
 
         val mOrientationListener: OrientationEventListener = object : OrientationEventListener(
             application
@@ -115,6 +101,28 @@ class Camera : Fragment() {
             }
         }
 
+        if (mOrientationListener.canDetectOrientation()) {
+            mOrientationListener.enable()
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            pushups = it.getBoolean(PUSHUPS)
+            squats = it.getBoolean(SQUATS)
+        }
+
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+
+
+
         text_to_speech = TextToSpeech(
             application
         ) { status ->
@@ -127,6 +135,15 @@ class Camera : Fragment() {
 
         graphicOverlay = binding.graphicOverlay
 
+        if( viewModel.mute ) {
+            binding.mute.setImageResource(R.drawable.mute_red)
+        }
+        if( viewModel.isStart ) {
+            binding.cardStartStop.setBackgroundColor(Color.parseColor("#b71c1c"))
+            binding.cardButton.text = "Stop"
+            binding.cardButton.setTextColor(Color.parseColor("#ffffff"))
+        }
+
         binding.back.setOnClickListener {
             if(!viewModel.isStart) findNavController().navigateUp()
             else {
@@ -136,10 +153,10 @@ class Camera : Fragment() {
 
         binding.flash.setOnClickListener {
             if (viewModel.isFlash) {
-                binding.flash.setImageResource(R.drawable.flash_off)
+                binding.flash.setImageResource(R.drawable.flash_off_white)
                 viewModel.isFlash = false
             } else {
-                binding.flash.setImageResource(R.drawable.flash_on)
+                binding.flash.setImageResource(R.drawable.flash_on_white)
                 viewModel.isFlash = true
             }
             bindUseCases(viewModel.which_camera, viewModel.isFlash, viewModel.isStart)
@@ -153,15 +170,15 @@ class Camera : Fragment() {
             }
             else {
                 binding.flash.visibility = View.VISIBLE
-                binding.flash.setImageResource(R.drawable.flash_off)
+                binding.flash.setImageResource(R.drawable.flash_off_white)
             }
             bindUseCases(viewModel.which_camera, viewModel.isFlash, viewModel.isStart)
         }
 
         binding.info.setOnClickListener {
-            if( (pushups == true) && (squats == true) ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing pushups and squats", Toast.LENGTH_LONG).show()
-            else if( pushups == true ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing pushups", Toast.LENGTH_LONG).show()
-            else if( squats == true ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing squats", Toast.LENGTH_LONG).show()
+            if( (pushups == true) && (squats == true) ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing pushups and squats", Toast.LENGTH_SHORT).show()
+            else if( pushups == true ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing pushups", Toast.LENGTH_SHORT).show()
+            else if( squats == true ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing squats", Toast.LENGTH_SHORT).show()
         }
 
         binding.cardStartStop?.setOnClickListener {
@@ -169,7 +186,7 @@ class Camera : Fragment() {
                 val temp: Long = (System.currentTimeMillis()/1000) - viewModel.start_time
                 val direction =
                     CameraDirections.actionCameraToCountingStopped(viewModel.pushups_cnt, viewModel.squats_cnt, temp.toInt())
-                var yo = TimeUtils.getTime() + " - " + TimeUtils.getMonth() + " " + TimeUtils.getDay() + ", " + TimeUtils.getYear();
+                var yo = TimeUtils.getTime() + " - " + TimeUtils.getDay() + " - " + TimeUtils.getMonth() + ", " + TimeUtils.getYear();
                 lifecycleScope.launch {
                     viewModel.database.insert(Table( dateTime = yo, duration = "Duration: " + getTime(temp.toInt()).toString(), pushups = "Pushups: " + viewModel.pushups_cnt.toString(), squats = "Squats: " + viewModel.squats_cnt.toString() ))
                 }
@@ -178,6 +195,9 @@ class Camera : Fragment() {
             else {
                 viewModel.start_time = System.currentTimeMillis()/1000
                 viewModel.isStart = true
+                binding.cardStartStop.setBackgroundColor(Color.parseColor("#b71c1c"))
+                binding.cardButton.text = "Stop"
+                binding.cardButton.setTextColor(Color.parseColor("#ffffff"))
                 bindUseCases(viewModel.which_camera, viewModel.isFlash, viewModel.isStart)
             }
         }
@@ -185,10 +205,12 @@ class Camera : Fragment() {
         binding.mute?.setOnClickListener {
             viewModel.mute = !viewModel.mute
             if( viewModel.mute ) {
-                Toast.makeText(application, "Voice mode deactivated", Toast.LENGTH_LONG).show()
+                binding.mute.setImageResource(R.drawable.mute_red)
+                Toast.makeText(application, "Voice mode deactivated", Toast.LENGTH_SHORT).show()
             }
             else {
-                Toast.makeText(application, "Voice mode activated", Toast.LENGTH_LONG).show()
+                binding.mute.setImageResource(R.drawable.mute_white)
+                Toast.makeText(application, "Voice mode activated", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -198,11 +220,11 @@ class Camera : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if(viewModel.prothom) {
-            if( (pushups == true) && (squats == true) ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing pushups and squats", Toast.LENGTH_LONG).show()
-            else if( pushups == true ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing pushups", Toast.LENGTH_LONG).show()
-            else if( squats == true ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing squats", Toast.LENGTH_LONG).show()
+            if( (pushups == true) && (squats == true) ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing pushups and squats", Toast.LENGTH_SHORT).show()
+            else if( pushups == true ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing pushups", Toast.LENGTH_SHORT).show()
+            else if( squats == true ) Toast.makeText(application, "Place camera in such a way that is can clearly see you doing squats", Toast.LENGTH_SHORT).show()
 
-            Toast.makeText(application, "Voice mode activated", Toast.LENGTH_LONG).show()
+            Toast.makeText(application, "Voice mode activated", Toast.LENGTH_SHORT).show()
             viewModel.prothom = false
         }
         if(viewModel.which_camera == 0) {
@@ -210,10 +232,10 @@ class Camera : Fragment() {
             viewModel.isFlash = false
         }
         if(viewModel.isFlash == true) {
-            binding.flash.setImageResource(R.drawable.flash_on)
+            binding.flash.setImageResource(R.drawable.flash_on_white)
         }
         if((viewModel.isFlash == false) && (viewModel.which_camera == 1)) {
-            binding.flash.setImageResource(R.drawable.flash_off)
+            binding.flash.setImageResource(R.drawable.flash_off_white)
         }
         bindUseCases(viewModel.which_camera, viewModel.isFlash, viewModel.isStart)
     }

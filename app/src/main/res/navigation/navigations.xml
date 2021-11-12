@@ -10,13 +10,25 @@
         android:label="PapaFragment" >
         <action
             android:id="@+id/action_papaFragment_to_startCounting"
-            app:destination="@id/startCounting" />
+            app:destination="@id/startCounting"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_papaFragment_to_infoFragment"
-            app:destination="@id/infoFragment" />
+            app:destination="@id/infoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_papaFragment_to_seePastCounts"
-            app:destination="@id/seePastCounts" />
+            app:destination="@id/seePastCounts"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/startCounting"
@@ -24,7 +36,11 @@
         android:label="StartCounting" >
         <action
             android:id="@+id/action_startCounting_to_camera"
-            app:destination="@id/camera" />
+            app:destination="@id/camera"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/camera"
@@ -33,7 +49,11 @@
         <action
             android:id="@+id/action_camera_to_countingStopped"
             app:destination="@id/countingStopped"
-            app:popUpTo="@id/papaFragment" />
+            app:popUpTo="@id/papaFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="pushups"
             app:argType="boolean"
