@@ -3,10 +3,11 @@ This android app makes use of the phone's camera to count how many pushups and/o
 
 ## Screenshots of the app
 
-<img src="https://drive.google.com/uc?export=view&id=1CS7lK9g2s4gnY0t-7EVMeeBxovssj-dg" alt="Home Page" width="240"/> <img src="https://drive.google.com/uc?export=view&id=1CS7lK9g2s4gnY0t-7EVMeeBxovssj-dg" alt="Home Page" width="240"/>
-<img src="https://drive.google.com/uc?export=view&id=1CS7lK9g2s4gnY0t-7EVMeeBxovssj-dg" alt="Home Page" width="240"/> <img src="https://drive.google.com/uc?export=view&id=1CS7lK9g2s4gnY0t-7EVMeeBxovssj-dg" alt="Home Page" width="240"/>
-<img src="https://drive.google.com/uc?export=view&id=1CS7lK9g2s4gnY0t-7EVMeeBxovssj-dg" alt="Home Page" width="240"/> <img src="https://drive.google.com/uc?export=view&id=1CS7lK9g2s4gnY0t-7EVMeeBxovssj-dg" alt="Home Page" width="240"/>
-<img src="https://drive.google.com/uc?export=view&id=1CS7lK9g2s4gnY0t-7EVMeeBxovssj-dg" alt="Home Page" width="240"/> <img src="https://drive.google.com/uc?export=view&id=1CS7lK9g2s4gnY0t-7EVMeeBxovssj-dg" alt="Home Page" width="240"/>
+<img src="https://github.com/nimom38/Pushup-and-Squats-Counter/blob/main/app/src/main/res/drawable/Screenshot_2021-12-02-16-57-14-949_com.example.android.getfit.jpg" alt="Home Page" width="240"/> <img src="https://github.com/nimom38/Pushup-and-Squats-Counter/blob/main/app/src/main/res/drawable/Screenshot_2021-12-02-16-57-17-833_com.example.android.getfit.jpg" alt="Info Page" width="240"/>
+<img src="https://github.com/nimom38/Pushup-and-Squats-Counter/blob/main/app/src/main/res/drawable/Screenshot_2021-12-02-16-57-33-170_com.example.android.getfit.jpg" alt="Database" width="240"/> <img src="https://github.com/nimom38/Pushup-and-Squats-Counter/blob/main/app/src/main/res/drawable/Screenshot_2021-12-02-16-57-37-968_com.example.android.getfit.jpg" alt="Database" width="240"/>
+<img src="https://github.com/nimom38/Pushup-and-Squats-Counter/blob/main/app/src/main/res/drawable/Screenshot_2021-12-02-16-57-41-347_com.example.android.getfit.jpg" alt="Exercise Types" width="240"/> <img src="https://github.com/nimom38/Pushup-and-Squats-Counter/blob/main/app/src/main/res/drawable/Screenshot_2021-12-02-16-59-14-503_com.example.android.getfit.jpg" alt="Camera" width="240"/>
+<img src="https://github.com/nimom38/Pushup-and-Squats-Counter/blob/main/app/src/main/res/drawable/Screenshot_2021-12-02-16-59-19-603_com.example.android.getfit.jpg" alt="Camera" width="240"/> <img src="https://github.com/nimom38/Pushup-and-Squats-Counter/blob/main/app/src/main/res/drawable/Screenshot_2021-12-02-16-59-45-633_com.example.android.getfit.jpg" alt="Camera" width="240"/>
+<img src="https://github.com/nimom38/Pushup-and-Squats-Counter/blob/main/app/src/main/res/drawable/Screenshot_2021-12-02-17-00-03-257_com.example.android.getfit.jpg" alt="Count Finished Page" width="240"/>
 
 ## How to use
 
